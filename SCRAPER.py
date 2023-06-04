@@ -15,8 +15,6 @@ import requests
 
 # import os
 # os.environ['PATH'] += 'path'
-# we can use this later if we care enough
-
 from googleapiclient.discovery import build
 yt = build('youtube', 'v3', developerKey='AIzaSyB7lyhbFr1Q_uDc6KAGQW359ObiPEtuUFE')
 
@@ -24,15 +22,15 @@ def getInfo(username):
   print('getting email from desc:')
   #make the URL
   a = "https://youtube.com/@" + username + "/about"
+  print(email_from_description(a))
   # r = requests.get(a)
   # useThis = r.text.replace('\n',' ').replace(',','')
   # print(useThis)
   # searchCriteria = re.compile(("[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?")) #this is from regex generator
   # email = re.search(searchCriteria, useThis).group(0)
   # print(email)
-  print(email_from_description(a))
 
-def email_from_description(url): #this is the best i could try
+def email_from_description(url): 
   r = requests.get(url)
   HTMLData = BeautifulSoup(r.text)
   c = HTMLData.find("meta",{'property':"og:description"})
@@ -45,4 +43,5 @@ def email_from_description(url): #this is the best i could try
   email = re.findall(s2,emailLn)
   return (email[0])
 
-getInfo('AhmadAlKaashekh')
+getInfo('AhmadAlKaashekh') #input any youtube user without the "@"
+                           #example: for @ARYDigitalasia, just write 'ARYDigitalasia'
